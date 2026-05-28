@@ -1,0 +1,28 @@
+ion-menu {
+    --background: #4babbc;
+}
+
+ion-toolbar {
+    --background: #63c8da;
+    --color: #000000;
+}
+
+ion-content {
+    --background: linear-gradient(to bottom right, #ffffff, #87c6d1, #4babbc, #a5dae3);
+    --color: #000000;
+}
+
+ion-item {
+    --background: #b3e5fc;
+    --color: #000000;
+}
+
+ion-item:hover {
+    --background: #b3e5fc;
+}
+
+ion-header,
+ion-footer {
+    border: none;
+    --background: #29b6f6;
+}
