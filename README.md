@@ -1,183 +1,116 @@
+# 📅 Gennda — Aplicación Híbrida de Agendas y Finanzas
 
-Aplicacion Hibrida de Agendas y Finanzas
+Aplicación móvil híbrida (Android, iOS y Web) que permite administrar la agenda personal y laboral, y llevar el control de las finanzas asociadas, desde un mismo lugar.
 
-La  aplicacion permite al usuario administrar su agenda personal y laboral, ademas de llevar un control de sus finanzas desde un mismo lugar.
+![Vue](https://img.shields.io/badge/Vue.js-3-4FC08D?style=flat&logo=vue.js&logoColor=white)
+![Ionic](https://img.shields.io/badge/Ionic-8-3880FF?style=flat&logo=ionic&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-Nativo-119EFF?style=flat&logo=capacitor&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-9-FF2D20?style=flat&logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+![Estado](https://img.shields.io/badge/Estado-Proyecto%20en%20equipo%20finalizado-success?style=flat)
 
-Equipo:
+---
 
-    4 Desarrolladores.
+## 📋 Descripción
 
-Plataformas soportadas:
+Gennda nació como proyecto universitario desarrollado por un **equipo de 4 desarrolladores**. Es una aplicación híbrida —compilada de forma nativa para Android e iOS con Capacitor, y también accesible desde la web— que centraliza la agenda personal/laboral del usuario junto con el control de sus finanzas.
 
-    Android
+> 📸 *Capturas de pantalla — próximamente.*
 
-    iOs
+### Módulos de la aplicación
+Agenda · Calendario · Finanzas · Historial financiero · Ayuda y soporte · Políticas · Perfil
 
-    Web
+---
 
+## 👤 Mi rol en el equipo
 
-Total de modulos:
+Este proyecto fue construido colaborativamente. Mis responsabilidades específicas dentro del equipo fueron:
 
-    Agenda,
- 
-    Calendario,
- 
-    Finanzas,
- 
-    Historial,
- 
-    Ayuda y soporte,
- 
-    Politicas,
- 
-    Perfil
- 
+- Desarrollo del **menú de navegación** de la aplicación.
+- Construcción de la **vista de Políticas de Privacidad**, integrada con el flujo de registro e inicio de sesión (la creación de cuenta queda condicionada a la aceptación de las políticas).
+- Ajustes de **estilos e interfaz** adaptados a las particularidades de cada plataforma (iOS, Android, Web).
+- Consumo de la API mediante Axios en los componentes del frontend.
 
-TECNOLOGIAS UTILIZADAS
-Frontend
+---
 
-    Ionic 
+## ⚙️ Funcionalidades principales
 
-    Vue.js
+**Agenda**
+- Crear, editar y eliminar eventos.
+- Visualizar eventos en el calendario.
+- Registrar eventos de trabajo y eventos familiares.
+- Asociar un gasto estimado a un evento.
 
-    TypeScript
+**Calendario**
+- Visualizar eventos por día y consultar lo programado.
 
-Backend
+**Finanzas**
+- Administrar ingresos, gastos y balances.
+- Los gastos registrados desde un evento se reflejan automáticamente en el historial financiero.
 
-    Laravel
+**Historial financiero**
+- Consultar el historial de ingresos y gastos.
 
-    Php
+---
 
-    Composer
+## 🛠️ Stack tecnológico
 
-Base de datos:
+- **Frontend móvil:** Vue 3, Ionic Vue 8, TypeScript, Capacitor (compilación nativa iOS/Android), Vue Router, Axios, Element Plus
+- **Backend:** Laravel 9, PHP, Laravel Sanctum (autenticación por tokens), Laravel CORS
+- **Base de datos:** MySQL
+- **Pruebas de API:** Postman
 
-    MySql
+---
 
-Erramientas de prueva de api:
+## 🗂️ Estructura del repositorio
 
-    Postman
+```
+gennda/
+├── Api/        # Backend — Laravel 9 + Sanctum (API REST)
+└── Gennda/     # Frontend — Ionic + Vue 3 + TypeScript + Capacitor
+```
 
+---
 
+## 🚀 Instalación y ejecución
 
-FUNCIONALIDADES DE CADA COMPONENTE DEL SISTEMA
+**Requisitos:** XAMPP o Laragon (Apache + MySQL), Composer, Node.js, Ionic CLI.
 
-Agenda
+### Backend (`Api/`)
+1. Iniciar Apache y MySQL desde XAMPP o Laragon.
+2. Crear la base de datos con el mismo nombre definido en `.env` (por ejemplo, `apigennda_db`).
+3. Instalar dependencias:
+   ```bash
+   cd Api
+   composer install
+   ```
+4. Ejecutar las migraciones:
+   ```bash
+   php artisan migrate
+   ```
+5. Levantar la API:
+   ```bash
+   php artisan serve
+   ```
 
-el usuario puede:
+### Frontend (`Gennda/`)
+1. Instalar dependencias:
+   ```bash
+   cd Gennda
+   npm install
+   ```
+2. Ejecutar la aplicación:
+   ```bash
+   ionic serve
+   ```
 
-    -Crear eventos.
-    
-    -Editar eventos.
-    
-    -Eliminae eventos 
-    
-    -Visualizar eventos en el calendario.
-    
-    -Registrar eventos de trabajo.
-    
-    -Registrar eventos familiares.
-    
-    -Registrar gastos estimados asociado a un evento.
+---
 
+## 👨‍💻 Autor
 
-Calendario
+**Isaac Dagoberto Deodanes Benitez**
+Desarrollador Full Stack Jr
+📧 isacdeodanes@gmail.com · 💻 [GitHub](https://github.com/isac-deodanes) · 🔗 [LinkedIn](https://www.linkedin.com/in/isaac-deodanes-a31a26379/)
 
-El calendario permite a los usuarios:
-
-    -Visualizar los eventos por dia,
-    
-    -Consultar los eventos programados.
-
-
-
-Finanzas
-
-lA aplicacion cuenta con un modulo financiero donde el usuario puede administrar:
-
-    -ingresos
-    
-    -gastos
-    
-    -valances
-    
-    los gastos registrados desde un evento tambien se reflejan automaticamente en el historial financiero.
-
-
-Historial Financiero
-
-En esta seccion el usuario podra visualizar su:
-
-    -Historial de ingresos,
-    
-    -Historial de gastos,
-
-
-
-
-
-
-
-
-
-COMO INSTALAR PREYECTO
-
-1 Tener istalado Xampp o Laragon
-
-Es necesario tener instalado alguno de los dos software
-
-
-    -Iniciar Apache
-    
-    -Iniciar MySql
-
-
-2 Crear la base datos 
-
-Ingresar a la interfas web phpMyAdmin o localhost y desde ahi crear la base de datos 
-es importante nombrarlo con el mismo nombre por el cual esta definido en el archivo .env o visebersa asi como se esta nombrando en el archivo .env asi nombrar la base de datos del API
-
-    Ejemplo: DB_DATABASE=apigennda_db
-
-
-3 instalciones de depenencias del backend
-
-Una ves ya conectado el proyactoAPI con la base de datos 
-instalar las dependendias del backend, entrar a la carpeta API 
-
-ejecutar el comando:
-
-    composer install
-
-
-
-4 Ejecutar migraciones
-
-   una ves ya instalado todo y conectado la base de datos 
-   ejecutar el comando dentro de la carpeta API: 
-   
-    php artisan migrate
-
-
-
-
-6 Levantar la API
-
-estando dentro de la carpeta de la api, ejecutar el comando: php artisan serve
-y mostrara la url con el puerto.
-
-
-
-
-7 Instalar dependicias del Frontend 
-
-Entrar a la carpeta Gennda 
-
-ejecutar: npm install 
-
-para ejecutar el frontend 
-
-ionic serve
-
-una ves ejecutado todo mostrara la url y el puerto y la aplicacion automaticamente se abrira en el navegador.
-
+*Proyecto desarrollado en equipo como parte de la formación académica.*
