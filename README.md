@@ -16,18 +16,24 @@ Aplicación móvil híbrida (Android, iOS y Web) que permite administrar la agen
 
 Gennda nació como proyecto universitario desarrollado por un **equipo de 4 desarrolladores**. Es una aplicación híbrida —compilada de forma nativa para Android e iOS con Capacitor, y también accesible desde la web— que centraliza la agenda personal/laboral del usuario junto con el control de sus finanzas.
 
-<p align="center">
-  <img src="Screenshot/inicio.png" width="40%" />
-    <img src="Screenshot/registro.png" width="40%" />
-  <img src="Screenshot/inicio-de-session.png" width="40%" />
-  <img src="Screenshot/navegacion.png" width="40%" />
-  <img src="Screenshot/agenda.png" width="40%" />
-  <img src="Screenshot/historial.png" width="40%" />
-  <img src="Screenshot/finanzas.png" width="40%" />
-  <img src="Screenshot/ayuda-Soporte.png" width="40%" />
-  <img src="Screenshot/perfil.png" width="40%" />
-   
-</p>
+
+<table>
+  <tr>
+    <td>  <img src="Screenshot/inicio.png" width="100%" /></td>
+    <td>    <img src="Screenshot/registro.png" width="100%" /></td>
+    <td>  <img src="Screenshot/inicio-de-session.png" width="100%" /></td>
+  </tr>
+  <tr>
+    <td>  <img src="Screenshot/navegacion.png" width="100%" /></td>
+    <td>  <img src="Screenshot/agenda.png" width="100%" /></td>
+    <td><img src="Screenshot/historial.png" width="100%" /></td>
+  </tr>
+   <tr>
+    <td>  <img src="Screenshot/finanzas.png" width="100%" /></td>
+    <td> <img src="Screenshot/ayuda-Soporte.png" width="100%" /></td>
+    <td> <img src="Screenshot/perfil.png" width="100%" /></td>
+  </tr>
+</table>
 
 ### Módulos de la aplicación
 Agenda · Calendario · Finanzas · Historial financiero · Ayuda y soporte · Políticas · Perfil
