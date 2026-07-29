@@ -84,7 +84,7 @@
                             </ion-accordion>
                         </ion-accordion-group>
 
-                        
+
                     </ion-card-content>
                 </ion-card>
             </div>
@@ -162,8 +162,10 @@ ion-card-title {
 }
 
 .white-bg-item {
-    --background: white !important;
+    --background: rgb(255, 255, 255) !important;
     --color: black !important;
+    stroke: rgb(12 8 8 / 54%) !important;
+    --background-hover: rgb(255 255 255);
 }
 
 ion-accordion-group {
@@ -211,4 +213,18 @@ ion-footer p {
         width: 60%;
     }
 }
+
+:host {
+    --background-hover: rgb(255 255 255);
+}
+
+:host .ionicon {
+    stroke: rgb(12 8 8 / 54%) !important;
+}
+::slotted(ion-icon) {
+    color: rgb(11 6 6 / 54%);
+    font-size: 1.5em;
+     --background-hover: rgb(255 255 255);
+}
+
 </style>

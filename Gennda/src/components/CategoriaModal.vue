@@ -14,35 +14,21 @@
     <ion-content :fullscreen="true">
       <ion-list :inset="true">
         <ion-item>
-          <ion-input
-            label="Nombre"
-            label-placement="stacked"
-            placeholder="Ej. Personal, Trabajo..."
-            v-model="categoria.nombre"
-          ></ion-input>
+          <ion-input label="Nombre" label-placement="stacked" placeholder="Ej. Personal, Trabajo..."
+            v-model="categoria.nombre"></ion-input>
         </ion-item>
-        
+
         <ion-item>
-          <ion-input
-            label="Color (Hex)"
-            label-placement="stacked"
-            placeholder="Ej. #A78BFA"
-            v-model="categoria.color"
-          ></ion-input>
+          <ion-input label="Color (Hex)" label-placement="stacked" placeholder="Ej. #A78BFA"
+            v-model="categoria.color"></ion-input>
         </ion-item>
 
         <ion-list-header>
           <ion-label>O elige uno rápido</ion-label>
         </ion-list-header>
         <div class="color-palette">
-          <div
-            v-for="color in colorPalette"
-            :key="color"
-            class="color-swatch"
-            :style="{ backgroundColor: color }"
-            :class="{ 'selected': categoria.color === color }"
-            @click="categoria.color = color"
-          ></div>
+          <div v-for="color in colorPalette" :key="color" class="color-swatch" :style="{ backgroundColor: color }"
+            :class="{ 'selected': categoria.color === color }" @click="categoria.color = color"></div>
         </div>
 
       </ion-list>
@@ -140,7 +126,7 @@ const handleSave = async () => {
       // --- LÓGICA DE CREACIÓN (POST) ---
       response = await apiClient.post('/categorias', categoria.value);
     }
-    
+
     await loading.dismiss();
     modalController.dismiss(response.data, 'confirm'); // Devuelve la categoría actualizada
 
@@ -158,9 +144,36 @@ const handleSave = async () => {
 </script>
 
 <style scoped>
-ion-list { background: transparent; }
-ion-item { margin-bottom: 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-.color-palette { display: flex; flex-wrap: wrap; gap: 12px; padding: 12px 20px; }
-.color-swatch { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.2s ease; border: 3px solid transparent; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.color-swatch.selected { border-color: #ffffff; transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 3px solid transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch.selected {
+  border-color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 </style>

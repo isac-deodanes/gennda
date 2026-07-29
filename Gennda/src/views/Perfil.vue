@@ -11,8 +11,8 @@
         <ion-content :fullscreen="true" class="ion-padding">
             <div class="profile-card" v-if="user">
                 <div class="avatar-container" @click="triggerFileInput">
-                    <ion-avatar>
-                        <img :src="user.foto_url" alt="Foto de perfil" />
+                     <ion-avatar>
+                       <img :src="user.foto_url" alt="Foto de perfil" />
                     </ion-avatar>
                     <div class="edit-icon">
                         <ion-icon :icon="camera"></ion-icon>
@@ -117,8 +117,11 @@ const showCropperModal = ref(false);
 const selectedImage = ref<string | null>(null);
 const cropperRef = ref<any>(null);
 const API_URL = 'http://127.0.0.1:8000/api';
+
+
 onMounted(() => {
     loadUserData();
+
 });
 const loadUserData = () => {
     const userDataString = localStorage.getItem('user_data');
@@ -127,6 +130,8 @@ const loadUserData = () => {
     } else {
         handleLogout(false);
     }
+
+    console.log(user.value.foto_url)
 };
 const startEditing = () => {
     editableData.value.nombre = user.value.nombre;
@@ -173,11 +178,16 @@ const triggerFileInput = () => {
 const onFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
+    console.log('dfnogvidnfo',file)
+
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
             selectedImage.value = e.target?.result as string;
+            console.log('seleccion de imagen',selectedImage)
             showCropperModal.value = true;
+            console.log('show',showCropperModal)
+
         };
         reader.readAsDataURL(file);
     }
@@ -194,10 +204,14 @@ const handleCrop = () => {
                 });
                 closeCropperModal();
                 await uploadPhoto(croppedFile); 
+                console.log('cropped file',croppedFile)
+                // console.log('cropped file',uploadPhoto)
+                console.log('cropped',blob)
             }
         }, 'image/jpeg');
     }
 };
+
 const closeCropperModal = () => {
     showCropperModal.value = false;
     selectedImage.value = null;
@@ -208,6 +222,7 @@ const uploadPhoto = async (file: File) => {
 
     const formData = new FormData();
     formData.append('foto', file);
+    console.log('foto',file)
     try {
         const token = localStorage.getItem('auth_token');
         if (!token) {
