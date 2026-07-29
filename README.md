@@ -16,7 +16,7 @@ Aplicación móvil híbrida (Android, iOS y Web) que permite administrar la agen
 
 Gennda nació como proyecto universitario desarrollado por un **equipo de 4 desarrolladores**. Es una aplicación híbrida —compilada de forma nativa para Android e iOS con Capacitor, y también accesible desde la web— que centraliza la agenda personal/laboral del usuario junto con el control de sus finanzas.
 
-<div aling="center" with="100">![Descripción de la captura](Screenshot/agenda.png)</div>div>
+<div aling="center" with="100px">![Descripción de la captura](Screenshot/agenda.png)</div>
 
 ### Módulos de la aplicación
 Agenda · Calendario · Finanzas · Historial financiero · Ayuda y soporte · Políticas · Perfil
