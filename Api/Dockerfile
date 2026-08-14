@@ -54,7 +54,7 @@ ENV APP_DEBUG=false
 EXPOSE 10000
 
 # Script de inicio que ejecuta migraciones y optimizaciones
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY entrypoint.sh /Api/entrypoint.sh
+RUN chmod +x /Api/entrypoint.sh
 
-CMD ["/entrypoint.sh"]
+CMD ["/Api/entrypoint.sh"]
