@@ -37,7 +37,7 @@ RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf
 RUN sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf
 
 # Copiamos el código de la aplicación
-COPY . /Api/var/www/html
+COPY . /var/www/html
 
 # Instalamos las dependencias de PHP (sin dev para producción)
 RUN composer install --no-dev --optimize-autoloader --no-interaction
