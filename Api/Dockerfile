@@ -32,8 +32,17 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 # Configuramos el puerto que Render asignará
 ENV PORT=10000
-RUN echo "Listen ${PORT}" >> /etc/apache2/ports.conf
-RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf
+
+# REEMPLAZAMOS completamente ports.conf para evitar duplicados
+RUN echo "Listen ${PORT}" > /etc/apache2/ports.conf
+RUN echo "<IfModule ssl_module>" >> /etc/apache2/ports.conf
+RUN echo "    Listen ${PORT}" >> /etc/apache2/ports.conf
+RUN echo "</IfModule>" >> /etc/apache2/ports.conf
+RUN echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
+RUN echo "    Listen ${PORT}" >> /etc/apache2/ports.conf
+RUN echo "</IfModule>" >> /etc/apache2/ports.conf
+
+# Configurar el puerto en el sitio por defecto
 RUN sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf
 
 # Copiamos el código de la aplicación
