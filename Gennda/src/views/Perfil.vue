@@ -104,6 +104,7 @@ import { camera, logOutOutline, pencil, save, close, checkmark } from 'ionicons/
 import { Cropper, CircleStencil } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import axios from 'axios';
+import api from '@/api/config';
 
 const router = useRouter();
 const user = ref<any>(null);
@@ -150,7 +151,7 @@ const handleUpdateProfile = async () => {
     await loading.present();
     try {
         const token = localStorage.getItem('auth_token');
-        const response = await axios.put(`${API_URL}/perfil`, editableData.value, {
+        const response = await api.put(`/perfil`, editableData.value, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.status === 200) {
@@ -229,7 +230,7 @@ const uploadPhoto = async (file: File) => {
             presentToast('Error de autenticación', 'danger');
             return;
         }
-        const response = await axios.post(`${API_URL}/perfil/foto`, formData, {
+        const response = await api.post(`/perfil/foto`, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data',
@@ -258,7 +259,7 @@ const handleLogout = async (showLoading = true) => {
     const token = localStorage.getItem('auth_token');
     try {
         if (token) {
-            await axios.post(`${API_URL}/logout`, {}, {
+            await api.post(`/logout`, {}, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
         }

@@ -252,6 +252,7 @@ import {
   archiveOutline
 } from 'ionicons/icons';
 import axios from 'axios';
+import api from "@/api/config";
 import { useRouter } from 'vue-router';
 
 // --- 1. CONFIGURACIÓN DE API (Sin cambios) ---
@@ -287,7 +288,7 @@ onMounted(() => {
 
 const fetchUserData = async () => {
   try {
-    const response = await apiClient.get('/user');
+    const response = await api.get('/user');
     user.value = response.data;
   } catch (error) {
     console.error('Error al cargar datos del usuario:', error);
@@ -303,7 +304,7 @@ const fetchEventsThisMonth = async () => {
   const mes = today.getMonth() + 1;
   const ano = today.getFullYear();
   try {
-    const response = await apiClient.get('/eventos', { params: { mes, ano } });
+    const response = await api.get('/eventos', { params: { mes, ano } });
     eventsThisMonth.value = response.data.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
   } catch (error) {
     console.error('Error al cargar eventos del mes:', error);
@@ -313,9 +314,9 @@ const fetchEventsThisMonth = async () => {
 const fetchPastEvents = async () => {
   try {
     const [ev1, ev2, ev3] = await Promise.all([
-      apiClient.get('/eventos', { params: getMonthYear(-1) }),
-      apiClient.get('/eventos', { params: getMonthYear(-2) }),
-      apiClient.get('/eventos', { params: getMonthYear(-3) })
+      api.get('/eventos', { params: getMonthYear(-1) }),
+      api.get('/eventos', { params: getMonthYear(-2) }),
+      api.get('/eventos', { params: getMonthYear(-3) })
     ]);
     const today = new Date().toISOString().split('T')[0];
     eventsPast.value = [...ev1.data, ...ev2.data, ...ev3.data]
@@ -356,7 +357,7 @@ const updateProfileData = async (dataToUpdate, successMessage) => {
   const loading = await loadingController.create({ message: 'Guardando...' });
   await loading.present();
   try {
-    const response = await apiClient.put('/perfil', dataToUpdate);
+    const response = await api.put('/perfil', dataToUpdate);
     user.value = response.data;
     if (dataToUpdate.hasOwnProperty('ingreso_mensual')) {
       incomeInput.value = '';

@@ -113,6 +113,7 @@ import { ref, computed, onMounted, watch } from 'vue';
 import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton,IonFooter, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle,IonLabel, IonSelect, IonSelectOption, IonSearchbar,IonList, IonListHeader, IonItem, IonIcon, IonText, IonSpinner,IonModal, toastController, IonButton,IonInput} from '@ionic/vue';
 import { calendarOutline, archiveOutline } from 'ionicons/icons';
 import axios from 'axios';
+import api from '@/api/config';
 import { useRouter } from 'vue-router';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
@@ -155,7 +156,7 @@ const loadEvents = async () => {
       return;
   }
   try {
-    const response = await apiClient.get('/eventos', {
+    const response = await api.get('/eventos', {
       params: {
         mes: filterMonth.value,
         ano: filterYear.value,

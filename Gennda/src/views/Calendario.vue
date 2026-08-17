@@ -229,7 +229,7 @@ import {
 import axios from 'axios';
 import EventoModal from '@/components/EventoModal.vue'; 
 import CategoriaModal from '@/components/CategoriaModal.vue'; 
-
+import api from '@/api/config';
 const router = useRouter();
 
 // --- 1. CONFIGURACIÓN DE API ---
@@ -297,7 +297,7 @@ const themeClass = computed(() => {
 // --- 4. FUNCIONES DE API ---
 const fetchUserData = async () => {
   try {
-    const response = await apiClient.get('/user');
+    const response = await api.get('/user');
     user.value = response.data;
   } catch (error) {
     console.error('Error al cargar datos del usuario:', error);
@@ -305,7 +305,7 @@ const fetchUserData = async () => {
 };
 const fetchCategories = async () => {
   try {
-    const response = await apiClient.get('/categorias');
+    const response = await api.get('/categorias');
     eventCategories.value = response.data;
   } catch (error) {
     console.error('Error al cargar categorías:', error);
@@ -316,7 +316,7 @@ const fetchEventsForMonth = async () => {
   try {
     const mes = currentDate.value.getMonth() + 1;
     const ano = currentDate.value.getFullYear();
-    const response = await apiClient.get('/eventos', {
+    const response = await api.get('/eventos', {
       params: { mes, ano }
     });
     allEventsForMonth.value = response.data;
@@ -443,7 +443,7 @@ const confirmDeleteEvento = async (eventoId: number) => {
 
 const deleteEvento = async (eventoId: number) => {
   try {
-    await apiClient.delete(`/eventos/${eventoId}`);
+    await api.delete(`/eventos/${eventoId}`);
     allEventsForMonth.value = allEventsForMonth.value.filter(e => e.id !== eventoId);
     const toast = await toastController.create({ message: 'Evento borrado.', duration: 2000, color: 'success' });
     await toast.present();
@@ -466,7 +466,7 @@ const confirmDeleteCategoria = async (category: Categoria) => {
 
 const deleteCategoria = async (category: Categoria) => {
   try {
-    await apiClient.delete(`/categorias/${category.id}`);
+    await api.delete(`/categorias/${category.id}`);
     eventCategories.value = eventCategories.value.filter(c => c.id !== category.id);
     await fetchEventsForMonth();
     const toast = await toastController.create({ message: 'Categoría borrada.', duration: 2000, color: 'success' });
