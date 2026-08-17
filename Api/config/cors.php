@@ -15,11 +15,18 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // --- ¡ESTA ES LA LÍNEA CORREGIDA! ---
-    'allowed_origins' => ['http://localhost:8100', 'http://localhost'],
-    // ------------------------------------
+    // Orígenes exactos permitidos (Para tu PC local y pruebas)
+    'allowed_origins' => [
+        'http://localhost:8100', 
+        'http://localhost',
+        'http://127.0.0.1:8000', 
+    ],
 
-    'allowed_origins_patterns' => [],
+    // PATRÓN DE COMODÍN PARA VERCEL (¡Esta es la clave!)
+    // Acepta cualquier dominio que empiece con https://gennda- y termine en .vercel.app
+    'allowed_origins_patterns' => [
+        '/^https:\/\/gennda-.*\.vercel\.app$/',
+    ],
 
     'allowed_headers' => ['*'],
 
@@ -27,6 +34,7 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    // true si envías tokens o cookies
+    'supports_credentials' => true, 
 
 ];
