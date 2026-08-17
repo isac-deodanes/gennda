@@ -41,6 +41,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonFooter, IonContent, IonLabel, IonInput, IonItem, IonButton, IonHeader, IonToolbar, toastController, IonIcon } from '@ionic/vue';
 import axios from 'axios';
+import api from '@/api/config';
 import { logInOutline } from 'ionicons/icons';
 
 const formData = ref({
@@ -64,7 +65,7 @@ const handleLogin = async () => {
         return;
     }
     try {
-        const response = await axios.post(`${API_URL}/login`, formData.value);
+        const response = await api.post(`/login`, formData.value);
         if (response.status === 200 && response.data.access_token) {
             console.log('Login exitoso:', response.data);
             localStorage.setItem('auth_token', response.data.access_token);
