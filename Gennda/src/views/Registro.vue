@@ -148,6 +148,7 @@ import { useRouter } from 'vue-router';
 import {IonPage, IonFooter, IonContent, IonLabel, IonInput, IonItem, IonButton, IonHeader, IonToolbar, toastController, IonIcon, IonModal, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonAccordionGroup, IonAccordion, IonButtons, IonTitle, IonCheckbox} from '@ionic/vue';
 import axios from 'axios';
 import { personAddOutline } from 'ionicons/icons';
+import api from '@/api/config';
 const formData = ref({
     nombre: '',
     email: '',
@@ -199,7 +200,7 @@ const handleRegister = async () => {
         return;
     }
     try {
-        const response = await axios.post(`${API_URL}/register`, formData.value);
+        const response = await api.post(`/register`, formData.value);
         if (response.status === 201) {
             console.log('Registro exitoso:', response.data);
             presentToast('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success');
