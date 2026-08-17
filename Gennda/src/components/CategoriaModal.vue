@@ -56,6 +56,7 @@ import {
   toastController
 } from '@ionic/vue';
 import axios from 'axios';
+import api from '@/api/config';
 
 // --- Interface y Props (NUEVO) ---
 interface Categoria {
@@ -121,10 +122,10 @@ const handleSave = async () => {
     let response;
     if (isEditMode.value) {
       // --- LÓGICA DE ACTUALIZACIÓN (PUT) ---
-      response = await apiClient.put(`/categorias/${props.categoriaToEdit.id}`, categoria.value);
+      response = await api.put(`/categorias/${props.categoriaToEdit.id}`, categoria.value);
     } else {
       // --- LÓGICA DE CREACIÓN (POST) ---
-      response = await apiClient.post('/categorias', categoria.value);
+      response = await api.post('/categorias', categoria.value);
     }
 
     await loading.dismiss();
