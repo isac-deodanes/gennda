@@ -99,7 +99,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, handleError } from 'vue';
+import { ref, onMounted, handleError, toValue } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar, IonButton, IonButtons, IonItem, IonLabel, IonIcon, IonMenuButton, loadingController, toastController, IonInput, IonModal } from '@ionic/vue';
 import { camera, logOutOutline, pencil, save, close, checkmark } from 'ionicons/icons';
@@ -232,21 +232,30 @@ const uploadPhoto = async (file: File) => {
     const formData = new FormData();
     formData.append('foto', file);
     console.log('foto', file)
+    
     try {
         const token = localStorage.getItem('auth_token');
-        if (!token) {
-            presentToast('Error de autenticación', 'danger');
-            return;
-        }
         const response = await api.post(`/perfil/foto`, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data',
             }
         });
+
         user.value = response.data;
+
         localStorage.setItem('user_data', JSON.stringify(response.data));
+
+        if(user.value.foto_url){
+            const currentUrl = user.value.foto_url
+            user.value.foto_url = ''
+
+            setTimeout(()=>{
+                user.value.foto_url = currentUrl
+            },150)
+        }
         presentToast('Foto de perfil actualizada', 'success');
+
     } catch (error: any) {
         console.error('Error al subir la foto:', error);
         let msg = 'No se pudo subir la foto.';
