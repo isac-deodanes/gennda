@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "=== INICIANDO ENTRYPOINT ==="
-
+php artisan storage:link
 # 1. Agregar hostname de Aiven al /etc/hosts
 HOSTNAME="mysql-3dc5b7be-base-de-datos-proyectos.g.aivencloud.com"
 echo "Intentando resolver $HOSTNAME..."
