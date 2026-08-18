@@ -53,12 +53,21 @@ class Usuarios extends Authenticatable
     {
         return 'usuario_id';
     }
-    public function getFotoUrlAttribute()
+      public function getFotoUrlAttribute($value)
     {
-        if ($this->foto_path) {
-            return Storage::disk('public')->url($this->foto_path);
+
+        if (!$value) {
+
+            return 'https://ionicframework.com/docs/img/demos/avatar.svg';
         }
-        return 'https://ionicframework.com/docs/img/demos/avatar.svg';
+
+       
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return $value;
+        }
+
+        // CONVIERTE LA RUTA RELATIVA EN ABSOLUTA:
+        return 'https://gennda-api.onrender.com/storage/' . $value;
     }
     public function categorias()
     {
