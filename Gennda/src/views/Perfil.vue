@@ -11,8 +11,10 @@
         <ion-content :fullscreen="true" class="ion-padding">
             <div class="profile-card" v-if="user">
                 <div class="avatar-container" @click="triggerFileInput">
-                     <ion-avatar>
-                       <img v-if="user.foto_url" :src="user.foto_url" crossorigin="anonymus" alt="Foto de perfil" @error="handleImageError" />
+                    <ion-avatar>
+                        <img :src="user.foto_url || 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+                            alt="Foto de perfil"
+                            @error="e => e.target.src = 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
                     </ion-avatar>
                     <div class="edit-icon">
                         <ion-icon :icon="camera"></ion-icon>
@@ -99,7 +101,7 @@
 <script setup lang="ts">
 import { ref, onMounted, handleError } from 'vue';
 import { useRouter } from 'vue-router';
-import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar,IonButton, IonButtons, IonItem, IonLabel, IonIcon, IonMenuButton,loadingController, toastController, IonInput,IonModal} from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar, IonButton, IonButtons, IonItem, IonLabel, IonIcon, IonMenuButton, loadingController, toastController, IonInput, IonModal } from '@ionic/vue';
 import { camera, logOutOutline, pencil, save, close, checkmark } from 'ionicons/icons';
 import { Cropper, CircleStencil } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
@@ -185,15 +187,15 @@ const triggerFileInput = () => {
 const onFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
-    console.log('dfnogvidnfo',file)
+    console.log('dfnogvidnfo', file)
 
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
             selectedImage.value = e.target?.result as string;
-            console.log('seleccion de imagen',selectedImage)
+            console.log('seleccion de imagen', selectedImage)
             showCropperModal.value = true;
-            console.log('show',showCropperModal)
+            console.log('show', showCropperModal)
 
         };
         reader.readAsDataURL(file);
@@ -210,10 +212,10 @@ const handleCrop = () => {
                     type: 'image/jpeg',
                 });
                 closeCropperModal();
-                await uploadPhoto(croppedFile); 
-                console.log('cropped file',croppedFile)
+                await uploadPhoto(croppedFile);
+                console.log('cropped file', croppedFile)
                 // console.log('cropped file',uploadPhoto)
-                console.log('cropped',blob)
+                console.log('cropped', blob)
             }
         }, 'image/jpeg');
     }
@@ -229,7 +231,7 @@ const uploadPhoto = async (file: File) => {
 
     const formData = new FormData();
     formData.append('foto', file);
-    console.log('foto',file)
+    console.log('foto', file)
     try {
         const token = localStorage.getItem('auth_token');
         if (!token) {
