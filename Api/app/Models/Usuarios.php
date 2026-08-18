@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,15 +55,17 @@ class Usuarios extends Authenticatable
     {
         return 'usuario_id';
     }
-      public function getFotoUrlAttribute($value)
+    public function getFotoUrlAttribute()
     {
+        // Obtenemos el valor real de la base de datos (foto_path)
+        $value = $this->attributes['foto_path'] ?? null;
 
+        // Si no hay foto, devuelve el placeholder
         if (!$value) {
-
             return 'https://ionicframework.com/docs/img/demos/avatar.svg';
         }
 
-       
+        // Si el valor YA es una URL completa (ej: de prueba o de otro servidor), la devolvemos tal cual.
         if (filter_var($value, FILTER_VALIDATE_URL)) {
             return $value;
         }
@@ -74,7 +78,8 @@ class Usuarios extends Authenticatable
         return $this->hasMany(Categoria::class);
     }
 
-    public function eventos(){
+    public function eventos()
+    {
         return $this->hasMany(Evento::class);
     }
 }
