@@ -71,7 +71,7 @@ class Usuarios extends Authenticatable
         }
 
         // CONVIERTE LA RUTA RELATIVA EN ABSOLUTA:
-        return 'https://gennda-api.onrender.com/storage/' . $value;
+        return 'https://gennda-api.onrender.com/' . $value;
     }
     public function categorias()
     {
