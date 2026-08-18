@@ -70,7 +70,7 @@ class Usuarios extends Authenticatable
         // ✅ CORRECCIÓN DEFINITIVA PARA TU ESTRUCTURA:
         // Tu foto YA está en public/storage/uploads/fotos/. 
         // Por lo tanto, la URL pública debe ser: /storage/uploads/fotos/...
-        return 'https://gennda-api.onrender.com/storage/' . $value;
+        return 'https://gennda-api.onrender.com/' . $value;
     }
     public function categorias()
     {

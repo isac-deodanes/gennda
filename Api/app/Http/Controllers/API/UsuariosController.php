@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuarios;
@@ -67,7 +69,7 @@ class UsuariosController extends Controller
             'user' => $usuario
         ], 200);
     }
-    
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -76,28 +78,16 @@ class UsuariosController extends Controller
             'message' => 'Sesión cerrada exitosamente.'
         ], 200);
     }
-    
-    public function index()
-    {
-        
-    }
 
-    public function store(Request $request)
-    {
-    }
+    public function index() {}
 
-    public function show($id)
-    {
-        
-    }
+    public function store(Request $request) {}
 
-    public function update(Request $request, $id)
-    {
-    }
+    public function show($id) {}
 
-    public function destroy($id)
-    {
-    }
+    public function update(Request $request, $id) {}
+
+    public function destroy($id) {}
 
     public function updatePhoto(Request $request)
     {
@@ -112,10 +102,18 @@ class UsuariosController extends Controller
         $user = $request->user();
 
         if ($user->foto_path) {
-            Storage::disk('public')->delete($user->foto_path);
+            $oldPath = public_path($user->foto_path);
+            if (file_exists($oldPath)) {
+                unlink($oldPath); // Borra el archivo físico de la carpeta public/uploads/fotos
+            }
         }
-        $path = $request->file('foto')->store('uploads/fotos', 'public');
-        $user->foto_path = $path;
+
+        $file = $request->file('foto');
+        $nombreArchivo = time() . '_' . $file->getClientOriginalName();
+
+        $file->move(public_path('uploads/fotos'), $nombreArchivo);
+
+        $user->foto_path = 'uploads/fotos/' . $nombreArchivo;
         $user->save();
         return response()->json($user);
     }
@@ -126,7 +124,7 @@ class UsuariosController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'sometimes|required|string|max:255',
             'email' => [
-                'sometimes', 
+                'sometimes',
                 'required',
                 'string',
                 'email',
@@ -134,7 +132,7 @@ class UsuariosController extends Controller
                 Rule::unique('usuarios')->ignore($user->id),
             ],
             'balance_actual' => 'sometimes|nullable|numeric|min:0',
-            'ingreso_mensual' => 'sometimes|nullable|numeric|min:0'        
+            'ingreso_mensual' => 'sometimes|nullable|numeric|min:0'
         ]);
 
         if ($validator->fails()) {
@@ -143,7 +141,4 @@ class UsuariosController extends Controller
         $user->update($validator->validated());
         return response()->json($user);
     }
-
-    
-
 }
