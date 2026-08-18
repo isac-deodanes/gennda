@@ -111,6 +111,11 @@ class UsuariosController extends Controller
         $file = $request->file('foto');
         $nombreArchivo = time() . '_' . $file->getClientOriginalName();
 
+        $carpetaDestino = public_path('uploads/fotos');
+        if (!file_exists($carpetaDestino)) {
+            mkdir($carpetaDestino, 0777, true); // Crea la carpeta si no existe
+        }
+
         $file->move(public_path('uploads/fotos'), $nombreArchivo);
 
         $user->foto_path = 'uploads/fotos/' . $nombreArchivo;
