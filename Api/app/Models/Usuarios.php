@@ -57,21 +57,20 @@ class Usuarios extends Authenticatable
     }
     public function getFotoUrlAttribute()
     {
-        // Obtenemos el valor real de la base de datos (foto_path)
         $value = $this->attributes['foto_path'] ?? null;
 
-        // Si no hay foto, devuelve el placeholder
         if (!$value) {
             return 'https://ionicframework.com/docs/img/demos/avatar.svg';
         }
 
-        // Si el valor YA es una URL completa (ej: de prueba o de otro servidor), la devolvemos tal cual.
         if (filter_var($value, FILTER_VALIDATE_URL)) {
             return $value;
         }
 
-        // CONVIERTE LA RUTA RELATIVA EN ABSOLUTA:
-        return 'https://gennda-api.onrender.com/' . $value;
+        // ✅ CORRECCIÓN DEFINITIVA PARA TU ESTRUCTURA:
+        // Tu foto YA está en public/storage/uploads/fotos/. 
+        // Por lo tanto, la URL pública debe ser: /storage/uploads/fotos/...
+        return 'https://gennda-api.onrender.com/storage/' . $value;
     }
     public function categorias()
     {
