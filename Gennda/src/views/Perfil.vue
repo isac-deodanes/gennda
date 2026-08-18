@@ -12,7 +12,7 @@
             <div class="profile-card" v-if="user">
                 <div class="avatar-container" @click="triggerFileInput">
                      <ion-avatar>
-                       <img :src="user.foto_url" alt="Foto de perfil" />
+                       <img v-if="user.foto_url" :src="user.foto_url" crossorigin="anonymus" alt="Foto de perfil" @error="handleImageError" />
                     </ion-avatar>
                     <div class="edit-icon">
                         <ion-icon :icon="camera"></ion-icon>
@@ -97,7 +97,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, handleError } from 'vue';
 import { useRouter } from 'vue-router';
 import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar,IonButton, IonButtons, IonItem, IonLabel, IonIcon, IonMenuButton,loadingController, toastController, IonInput,IonModal} from '@ionic/vue';
 import { camera, logOutOutline, pencil, save, close, checkmark } from 'ionicons/icons';
@@ -142,6 +142,12 @@ const startEditing = () => {
 const cancelEditing = () => {
     isEditing.value = false;
 };
+
+const handleImageError = (e) => {
+    console.error('Error cargando la imagen:', e.target.src);
+    e.target.src = 'https://via.placeholder.com/120';
+};
+
 const handleUpdateProfile = async () => {
     if (!editableData.value.nombre || !editableData.value.email) {
         presentToast('Nombre y correo no pueden estar vacíos', 'danger');
