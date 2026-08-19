@@ -59,16 +59,15 @@ class Usuarios extends Authenticatable
     {
         $value = $this->attributes['foto_path'] ?? null;
 
+        // Si no hay foto en la base de datos, retorna el avatar por defecto
         if (!$value) {
             return 'https://ionicframework.com/docs/img/demos/avatar.svg';
         }
 
-        if (filter_var($value, FILTER_VALIDATE_URL)) {
-            return $value;
-        }
-
-        return 'https://gennda-api.onrender.com/' . $value;
+        // Como Cloudinary guarda una URL completa válida, simplemente la retornamos
+        return $value;
     }
+
     public function categorias()
     {
         return $this->hasMany(Categoria::class);

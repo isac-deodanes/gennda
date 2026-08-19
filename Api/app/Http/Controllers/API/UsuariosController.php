@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class UsuariosController extends Controller
 {
     public function register(Request $request)
@@ -91,6 +91,7 @@ class UsuariosController extends Controller
 
     public function updatePhoto(Request $request)
     {
+        // 1. Validar la imagen
         $validator = Validator::make($request->all(), [
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -101,26 +102,30 @@ class UsuariosController extends Controller
 
         $user = $request->user();
 
-        if ($user->foto_path) {
-            $oldPath = public_path($user->foto_path);
-            if (file_exists($oldPath)) {
-                unlink($oldPath); // Borra el archivo físico de la carpeta public/uploads/fotos
-            }
+        try {
+            // 2. Subir la nueva imagen a Cloudinary en la carpeta "gennda/perfiles"
+            $uploadedFile = Cloudinary::upload($request->file('foto')->getRealPath(), [
+                'folder' => 'gennda/perfiles',
+            ]);
+
+            
+            $secureUrl = $uploadedFile->getSecurePath();
+
+            
+            $user->foto_path = $secureUrl;
+            $user->save();
+
+            return response()->json([
+                'message' => 'Foto de perfil actualizada correctamente',
+                'user' => $user
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al subir la imagen al servidor',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $file = $request->file('foto');
-        $nombreArchivo = time() . '_' . $file->getClientOriginalName();
-
-        $carpetaDestino = public_path('uploads/fotos');
-        if (!file_exists($carpetaDestino)) {
-            mkdir($carpetaDestino, 0777, true); // Crea la carpeta si no existe
-        }
-
-        $file->move(public_path('uploads/fotos'), $nombreArchivo);
-
-        $user->foto_path = 'uploads/fotos/' . $nombreArchivo;
-        $user->save();
-        return response()->json($user);
     }
 
     public function updateProfile(Request $request)
