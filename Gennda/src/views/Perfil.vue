@@ -145,10 +145,6 @@ const cancelEditing = () => {
     isEditing.value = false;
 };
 
-const handleImageError = (e) => {
-    console.error('Error cargando la imagen:', e.target.src);
-    e.target.src = 'https://via.placeholder.com/120';
-};
 
 const handleUpdateProfile = async () => {
     if (!editableData.value.nombre || !editableData.value.email) {
@@ -187,15 +183,12 @@ const triggerFileInput = () => {
 const onFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0];
-    console.log('dfnogvidnfo', file)
 
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
             selectedImage.value = e.target?.result as string;
-            console.log('seleccion de imagen', selectedImage)
             showCropperModal.value = true;
-            console.log('show', showCropperModal)
 
         };
         reader.readAsDataURL(file);
@@ -213,9 +206,6 @@ const handleCrop = () => {
                 });
                 closeCropperModal();
                 await uploadPhoto(croppedFile);
-                console.log('cropped file', croppedFile)
-                // console.log('cropped file',uploadPhoto)
-                console.log('cropped', blob)
             }
         }, 'image/jpeg');
     }
@@ -231,7 +221,6 @@ const uploadPhoto = async (file: File) => {
 
     const formData = new FormData();
     formData.append('foto', file);
-    console.log('foto', file)
     
     try {
         const token = localStorage.getItem('auth_token');
@@ -242,9 +231,9 @@ const uploadPhoto = async (file: File) => {
             }
         });
 
-        user.value = response.data;
+        user.value = response.data.user;
 
-        localStorage.setItem('user_data', JSON.stringify(response.data));
+        localStorage.setItem('user_data', JSON.stringify(response.data.user));
 
         if(user.value.foto_url){
             const currentUrl = user.value.foto_url
